@@ -7,25 +7,35 @@ function showCard(event) {
 
 function checkForMatch(event){
   console.log(openCards);
-  if (openCards[0] === openCards[1]) {
+  if (openCards[0].classList[1] == openCards[1].classList[1]) {
     console.log("it's a match");
+    openCards[0].classList.remove('open');
+    openCards[0].classList.add('match');
+    openCards[1].classList.remove('open');
+    openCards[1].classList.add('match');
   } else {
     console.log('not a match');
-  }
-  openCards = [];
+  };
 }
 
-function checkClickedCard(event) {
-  cardName = "";
+function addToOpenCards(event) {
+  let card = null;
   if (event.target.nodeName === 'LI') {
-    cardName = event.target.getAttribute('id');
+    card = event.target;
   } else {
-    cardName = event.target.parentElement.getAttribute('id');
+    card = event.target.parentElement;
   }
-  openCards.push(cardName);
+  openCards.push(card);
   if (openCards.length === 2) {
     checkForMatch(event);
   }
+}
+
+function resetCards(openCards) {
+  openCards[0].classList.toggle('open');
+  openCards[0].classList.toggle('show');
+  openCards[1].classList.toggle('open');
+  openCards[1].classList.toggle('show');
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -72,8 +82,7 @@ let deckUl = document.querySelector('.deck');
 //   loop through deck array, create HTML and append to page
 deck.forEach(function(card) {
   let currentCard = document.createElement('li');
-  currentCard.classList.add('card');
-  currentCard.setAttribute('id', card);
+  currentCard.classList.add('card', card);
   let cardItem = document.createElement('i');
   cardItem.classList.add('fa', 'fa-' + card);
   currentCard.appendChild(cardItem);
@@ -86,7 +95,7 @@ const cardsHTML = document.getElementsByClassName('card');
 for (let i=0; i < cardsHTML.length; i++) {
   cardsHTML[i].addEventListener('click', function(event) {
     showCard(event);
-    checkClickedCard(event);
+    addToOpenCards(event);
   });
 }
 
