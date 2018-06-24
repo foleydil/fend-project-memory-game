@@ -31,7 +31,7 @@ let deckUl = document.querySelector('.deck');
 deck.forEach(function(card) {
  let currentCard = document.createElement('li');
  currentCard.classList.add('card');
- currentCard.setAttribute('tag', card);
+ currentCard.setAttribute('id', card);
  let cardItem = document.createElement('i');
  cardItem.classList.add('fa', 'fa-' + card);
  currentCard.appendChild(cardItem);
@@ -69,8 +69,7 @@ function shuffle(array) {
 
  //Add open and show classes to a card when clicked
  function showCard(event) {
-   let clickedCard = event.target;
-   clickedCard.classList.add('open', 'show');
+   event.target.classList.add('open', 'show');
  }
 
 //
@@ -85,16 +84,25 @@ function checkForMatch(event){
 }
 
  function checkClickedCard(event) {
-   let clickedCard = event.target;
-   openCards.push(clickedCard.classList);
+   cardName = "";
+   if (event.target.nodeName === 'LI') {
+     cardName = event.target.getAttribute('id');
+   } else {
+     cardName = event.target.parentElement.getAttribute('id');
+   }
+   openCards.push(cardName);
    if (openCards.length === 2) {
      checkForMatch(event);
    }
  }
 
- deckUl.addEventListener('click', function(event){
-   showCard(event);
-   checkClickedCard(event);
- });
+ //Set up event listner on each card
+const cardsHTML = document.getElementsByClassName('card');
+for (let i=0; i < cardsHTML.length; i++) {
+  cardsHTML[i].addEventListener('click', function(event){
+    showCard(event);
+    checkClickedCard(event);
+  });
+}
 
 let openCards = [];
