@@ -28,6 +28,17 @@ let deck = [
  */
  shuffle(deck);
 
+let deckUl = document.querySelector('.deck');
+
+deck.forEach(function(card) {
+ let currentCard = document.createElement('li');
+ currentCard.classList.add('card', 'open', 'show');
+ let cardItem = document.createElement('i');
+ cardItem.classList.add('fa', card);
+ currentCard.appendChild(cardItem);
+ deckUl.appendChild(currentCard);
+});
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
