@@ -2,22 +2,22 @@
  * Create a list that holds all of your cards
  */
 let deck = [
-  'fa-diamond',
-  'fa-diamond',
-  'fa-paper-plane-o',
-  'fa-paper-plane-o',
-  'fa-anchor',
-  'fa-anchor',
-  'fa-bolt',
-  'fa-bolt',
-  'fa-cube',
-  'fa-cube',
-  'fa-leaf',
-  'fa-leaf',
-  'fa-bicycle',
-  'fa-bicycle',
-  'fa-bomb',
-  'fa-bomb',
+  'diamond',
+  'diamond',
+  'paper-plane-o',
+  'paper-plane-o',
+  'anchor',
+  'anchor',
+  'bolt',
+  'bolt',
+  'cube',
+  'cube',
+  'leaf',
+  'leaf',
+  'bicycle',
+  'bicycle',
+  'bomb',
+  'bomb',
 ];
 
 /*
@@ -31,8 +31,9 @@ let deckUl = document.querySelector('.deck');
 deck.forEach(function(card) {
  let currentCard = document.createElement('li');
  currentCard.classList.add('card');
+ currentCard.setAttribute('tag', card);
  let cardItem = document.createElement('i');
- cardItem.classList.add('fa', card);
+ cardItem.classList.add('fa', 'fa-' + card);
  currentCard.appendChild(cardItem);
 //   - add each card's HTML to the page
  deckUl.appendChild(currentCard);
@@ -64,11 +65,36 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+ //FUNCTION DECLARATIONS
+
+ //Add open and show classes to a card when clicked
  function showCard(event) {
    let clickedCard = event.target;
    clickedCard.classList.add('open', 'show');
  }
 
- deckUl.addEventListener('click', showCard);
+//
+function checkForMatch(event){
+  console.log(openCards);
+  if (openCards[0] === openCards[1]) {
+    console.log("it's a match");
+  } else {
+    console.log('not a match');
+  }
+  openCards = [];
+}
+
+ function checkClickedCard(event) {
+   let clickedCard = event.target;
+   openCards.push(clickedCard.classList);
+   if (openCards.length === 2) {
+     checkForMatch(event);
+   }
+ }
+
+ deckUl.addEventListener('click', function(event){
+   showCard(event);
+   checkClickedCard(event);
+ });
 
 let openCards = [];
