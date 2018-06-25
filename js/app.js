@@ -6,15 +6,14 @@ function showCard(event) {
 }
 
 function checkForMatch(event){
-  console.log(openCards);
   if (openCards[0].classList[1] == openCards[1].classList[1]) {
-    console.log("it's a match");
     openCards[0].classList.remove('open');
     openCards[0].classList.add('match');
     openCards[1].classList.remove('open');
     openCards[1].classList.add('match');
+    resetCards();
   } else {
-    console.log('not a match');
+    setTimeout(function(){ resetCards() }, 2000);
   };
 }
 
@@ -31,11 +30,11 @@ function addToOpenCards(event) {
   }
 }
 
-function resetCards(openCards) {
-  openCards[0].classList.toggle('open');
-  openCards[0].classList.toggle('show');
-  openCards[1].classList.toggle('open');
-  openCards[1].classList.toggle('show');
+function resetCards() {
+  for (let c of openCards) {
+    c.classList.remove('open','show');
+  }
+  openCards = [];
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -53,6 +52,11 @@ function shuffle(array) {
   return array;
 }
 
+
+//GLOBAL VARIABLES
+
+//array of DOM element of unmatched cards that are face-up
+let openCards = [];
 
 //array of card IDs
 let deck = [
@@ -99,7 +103,6 @@ for (let i=0; i < cardsHTML.length; i++) {
   });
 }
 
-let openCards = [];
 
 
 /*
