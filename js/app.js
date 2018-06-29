@@ -1,32 +1,26 @@
 //FUNCTION DECLARATIONS
 
 //Add open and show classes to a card when clicked
-function showCard(event) {
-  event.target.classList.add('open', 'show');
+function showCard(c) {
+  c.classList.add('open', 'show');
 }
 
 function checkForMatch(event){
   if (openCards[0].classList[1] == openCards[1].classList[1]) {
-    openCards[0].classList.remove('open');
+    openCards[0].classList.remove('open', 'show');
     openCards[0].classList.add('match');
-    openCards[1].classList.remove('open');
+    openCards[1].classList.remove('open', 'show');
     openCards[1].classList.add('match');
-    resetCards();
+    openCards = [];
   } else {
     setTimeout(function(){ resetCards() }, 2000);
   };
 }
 
-function addToOpenCards(event) {
-  let card = null;
-  if (event.target.nodeName === 'LI') {
-    card = event.target;
-  } else {
-    card = event.target.parentElement;
-  }
-  openCards.push(card);
+function addToOpenCards(c) {
+  openCards.push(c);
   if (openCards.length === 2) {
-    checkForMatch(event);
+    checkForMatch(c);
   }
 }
 
@@ -90,7 +84,7 @@ deck.forEach(function(card) {
   let cardItem = document.createElement('i');
   cardItem.classList.add('fa', 'fa-' + card);
   currentCard.appendChild(cardItem);
-  //   - add each card's HTML to the page
+  //  Add each card's HTML to the page
   deckUl.appendChild(currentCard);
 });
 
@@ -98,8 +92,16 @@ deck.forEach(function(card) {
 const cardsHTML = document.getElementsByClassName('card');
 for (let i=0; i < cardsHTML.length; i++) {
   cardsHTML[i].addEventListener('click', function(event) {
-    showCard(event);
-    addToOpenCards(event);
+    let card = null;
+    if (event.target.nodeName === 'LI') {
+      card = event.target;
+    } else {
+      card = event.target.parentElement;
+    };
+    if (!card.classList.contains('match')) {
+      showCard(card);
+      addToOpenCards(card);
+    };
   });
 }
 
