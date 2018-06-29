@@ -12,7 +12,9 @@ function checkForMatch(event){
     openCards[1].classList.remove('open', 'show');
     openCards[1].classList.add('match');
     openCards = [];
+    incrementMoveCount();
   } else {
+    incrementMoveCount();
     setTimeout(function(){ resetCards() }, 2000);
   };
 }
@@ -21,13 +23,13 @@ function addToOpenCards(c) {
   openCards.push(c);
   if (openCards.length === 2) {
     checkForMatch(c);
-  }
+  };
 }
 
 function resetCards() {
   for (let c of openCards) {
     c.classList.remove('open','show');
-  }
+  };
   openCards = [];
 }
 
@@ -41,11 +43,16 @@ function shuffle(array) {
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
-  }
+  };
 
   return array;
 }
 
+// Increment move count and redisplay
+function incrementMoveCount() {
+  moveCount += 1;
+  document.getElementById('moveCount').innerText = moveCount;
+}
 
 //GLOBAL VARIABLES
 
@@ -72,12 +79,17 @@ let deck = [
   'bomb',
 ];
 
+//Counter of moves
+let moveCount = 0;
+
+
+//SCRIPTS TO RUN ON LOAD
+
 //Shuffle deck array
 shuffle(deck);
 
-let deckUl = document.querySelector('.deck');
-
 //   loop through deck array, create HTML and append to page
+let deckUl = document.querySelector('.deck');
 deck.forEach(function(card) {
   let currentCard = document.createElement('li');
   currentCard.classList.add('card', card);
@@ -105,7 +117,7 @@ for (let i=0; i < cardsHTML.length; i++) {
       addToOpenCards(card);
     };
   });
-}
+};
 
 
 
