@@ -98,7 +98,9 @@ for (let i=0; i < cardsHTML.length; i++) {
     } else {
       card = event.target.parentElement;
     };
-    if (openCards.length !== 2 && !card.classList.contains('match')) {
+    if (openCards.length !== 2
+      && !card.classList.contains('match')
+      && card !== openCards[0]) {
       showCard(card);
       addToOpenCards(card);
     };
