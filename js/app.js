@@ -50,6 +50,14 @@ function addCardListeners() {
     };
   }
 
+//add listener to reset entire game when refresh button is clicked
+function addRefreshListener() {
+  let resetButton = document.getElementById('refresh');
+  resetButton.addEventListener('click', function() {
+    resetGame();
+  });
+}
+
 /*
 **Helper function for addCardListeners()
 **Adds open and show classes to a card when clicked
@@ -123,7 +131,25 @@ function removeStar() {
 
 //Resets game
 function resetGame() {
-  return null;
+  //reset stars to 3
+  resetStars();
+
+  //reset move count to 0
+  moveCount = 0;
+  document.getElementById('moveCount').innerText = moveCount;
+
+  //clear any card elements from openCards array
+  openCards = [];
+
+  //clear existing deck
+  let deckUl = document.querySelector('.deck');
+  deckUl.innerHTML = null;
+
+  //shuffle deck, display on page, and add appropriate listeners
+  shuffle(deck);
+  buildDeckGrid(deck);
+  addCardListeners();
+  addRefreshListener();
 };
 
 /*
@@ -143,9 +169,6 @@ for (i=0; i<3; i++) {
 
 
 //GLOBAL VARIABLES
-
-//array of DOM element of unmatched cards that are face-up
-let openCards = [];
 
 //array of card IDs
 let deck = [
@@ -167,19 +190,19 @@ let deck = [
   'bomb',
 ];
 
+//array of DOM element of unmatched cards that are face-up
+let openCards = [];
+
 //Counter of moves
 let moveCount = 0;
 
 
 //SCRIPTS TO RUN ON LOAD
 
-//Shuffle deck array
 shuffle(deck);
 buildDeckGrid(deck);
 addCardListeners();
-
-
-
+addRefreshListener();
 
 /*
  * set up the event listener for a card. If a card is clicked:
