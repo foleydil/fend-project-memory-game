@@ -135,7 +135,8 @@ function resetGame() {
   //reset stars to 3
   resetStars();
 
-  //reset move count to 0
+  //reset move count and match count to 0
+  matchCount = 0;
   moveCount = 0;
   document.getElementById('moveCount').innerText = moveCount;
 
