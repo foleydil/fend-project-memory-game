@@ -91,6 +91,7 @@ function checkForMatch(event){
     openCards[1].classList.remove('open', 'show');
     openCards[1].classList.add('match');
     openCards = [];
+    matchCount += 1;
     incrementMoveCount();
   } else {
     incrementMoveCount();
@@ -196,6 +197,8 @@ let openCards = [];
 //Counter of moves
 let moveCount = 0;
 
+//counter of sucessful matches. When counter reaches 8, user has won!
+let matchCount = 0;
 
 //SCRIPTS TO RUN ON LOAD
 
