@@ -1,38 +1,5 @@
 //FUNCTION DECLARATIONS
 
-//Add open and show classes to a card when clicked
-function showCard(c) {
-  c.classList.add('open', 'show');
-}
-
-function checkForMatch(event){
-  if (openCards[0].classList[1] == openCards[1].classList[1]) {
-    openCards[0].classList.remove('open', 'show');
-    openCards[0].classList.add('match');
-    openCards[1].classList.remove('open', 'show');
-    openCards[1].classList.add('match');
-    openCards = [];
-    incrementMoveCount();
-  } else {
-    incrementMoveCount();
-    setTimeout(function(){ resetCards() }, 2000);
-  };
-}
-
-function addToOpenCards(c) {
-  openCards.push(c);
-  if (openCards.length === 2) {
-    checkForMatch(c);
-  };
-}
-
-function resetCards() {
-  for (let c of openCards) {
-    c.classList.remove('open','show');
-  };
-  openCards = [];
-}
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -48,7 +15,96 @@ function shuffle(array) {
   return array;
 }
 
-// Increment move count and redisplay
+// loop through deck array, create HTML and append to page
+function buildDeckGrid(deck) {
+  let deckUl = document.querySelector('.deck');
+  deck.forEach(function(card) {
+    let currentCard = document.createElement('li');
+    currentCard.classList.add('card', card);
+    let cardItem = document.createElement('i');
+    cardItem.classList.add('fa', 'fa-' + card);
+    currentCard.appendChild(cardItem);
+    //  Add each card's HTML to the page
+    deckUl.appendChild(currentCard);
+  });
+}
+
+//Set up event listener on each card
+function addCardListeners() {
+  const cardsHTML = document.getElementsByClassName('card');
+  for (let i=0; i < cardsHTML.length; i++) {
+    cardsHTML[i].addEventListener('click', function(event) {
+      let card = null;
+      if (event.target.nodeName === 'LI') {
+        card = event.target;
+      } else {
+        card = event.target.parentElement;
+      };
+      if (openCards.length !== 2
+        && !card.classList.contains('match')
+        && card !== openCards[0]) {
+          showCard(card);
+          addToOpenCards(card);
+        };
+      });
+    };
+  }
+
+/*
+**Helper function for addCardListeners()
+**Adds open and show classes to a card when clicked
+*/
+function showCard(c) {
+  c.classList.add('open', 'show');
+}
+
+/*
+**Helper function for addCardListeners()
+**Adds clicked card to list of cards selected, and if 2 card are selected,
+**checks for match
+*/
+function addToOpenCards(c) {
+  openCards.push(c);
+  if (openCards.length === 2) {
+    checkForMatch(c);
+  };
+}
+
+/*
+**Helper function for AddtoOpenCards()
+**If two unmatched cards are showing, check for a match using class name,
+**and change class from 'open' to 'match' if matched, otherwise clears array
+**of current selected cards. also updates the move count.
+*/
+function checkForMatch(event){
+  if (openCards[0].classList[1] == openCards[1].classList[1]) {
+    openCards[0].classList.remove('open', 'show');
+    openCards[0].classList.add('match');
+    openCards[1].classList.remove('open', 'show');
+    openCards[1].classList.add('match');
+    openCards = [];
+    incrementMoveCount();
+  } else {
+    incrementMoveCount();
+    setTimeout(function(){ resetCards() }, 2000);
+  };
+}
+
+/*
+**Helper function for checkForMatch
+**Resets cards in openCards to be flipped down
+*/
+function resetCards() {
+  for (let c of openCards) {
+    c.classList.remove('open','show');
+  };
+  openCards = [];
+}
+
+/*
+**Helper function for checkForMatch
+**Increment move count, check if stars should be removed, and redisplay
+*/
 function incrementMoveCount() {
   moveCount += 1;
   document.getElementById('moveCount').innerText = moveCount;
@@ -57,10 +113,34 @@ function incrementMoveCount() {
   }
 }
 
-// Remove Star from score section
+/*
+**Helper function for incrementMoveCount
+**Remove Star from score section
+*/
 function removeStar() {
-    document.getElementById('stars').lastElementChild.remove();
+  document.getElementById('stars').lastElementChild.remove();
 }
+
+//Resets game
+function resetGame() {
+  return null;
+};
+
+/*
+**helper function for resetGame()
+**resets stars and moveCount to 0 moves and 3 starsHTML*/
+function resetStars() {
+let starsSection = document.getElementById('stars');
+starsSection.innerHTML = null;
+for (i=0; i<3; i++) {
+  let starItem = document.createElement('i');
+  starItem.classList.add('fa', 'fa-star');
+  let singleStarHTML = document.createElement('li');
+  singleStarHTML.appendChild(starItem);
+  starsSection.appendChild(singleStarHTML);
+  };
+}
+
 
 //GLOBAL VARIABLES
 
@@ -95,37 +175,9 @@ let moveCount = 0;
 
 //Shuffle deck array
 shuffle(deck);
+buildDeckGrid(deck);
+addCardListeners();
 
-//   loop through deck array, create HTML and append to page
-let deckUl = document.querySelector('.deck');
-deck.forEach(function(card) {
-  let currentCard = document.createElement('li');
-  currentCard.classList.add('card', card);
-  let cardItem = document.createElement('i');
-  cardItem.classList.add('fa', 'fa-' + card);
-  currentCard.appendChild(cardItem);
-  //  Add each card's HTML to the page
-  deckUl.appendChild(currentCard);
-});
-
-//Set up event listener on each card
-const cardsHTML = document.getElementsByClassName('card');
-for (let i=0; i < cardsHTML.length; i++) {
-  cardsHTML[i].addEventListener('click', function(event) {
-    let card = null;
-    if (event.target.nodeName === 'LI') {
-      card = event.target;
-    } else {
-      card = event.target.parentElement;
-    };
-    if (openCards.length !== 2
-      && !card.classList.contains('match')
-      && card !== openCards[0]) {
-      showCard(card);
-      addToOpenCards(card);
-    };
-  });
-};
 
 
 
