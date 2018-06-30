@@ -52,6 +52,14 @@ function shuffle(array) {
 function incrementMoveCount() {
   moveCount += 1;
   document.getElementById('moveCount').innerText = moveCount;
+  if (moveCount === 13 || moveCount === 20) {
+    removeStar();
+  }
+}
+
+// Remove Star from score section
+function removeStar() {
+    document.getElementById('stars').lastElementChild.remove();
 }
 
 //GLOBAL VARIABLES
