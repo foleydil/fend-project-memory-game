@@ -205,8 +205,16 @@ let matchCount = 0;
 
 shuffle(deck);
 buildDeckGrid(deck);
+resetStars();
 addCardListeners();
 addRefreshListener();
+
+
+//TODO: Add transitions when cards flip, match, or do not match
+//TODO: Add timer, start when game starts or is reset, stop when game is won
+//TODO: Display timer in score section
+//TODO: Add congratulations modal when matchCount = 8;
+//TODO: update README.md file
 
 /*
  * set up the event listener for a card. If a card is clicked:
