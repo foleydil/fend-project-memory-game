@@ -50,14 +50,6 @@ function addCardListeners() {
     };
   }
 
-//add listener to reset entire game when refresh button is clicked
-function addRefreshListener() {
-  let resetButton = document.getElementById('refresh');
-  resetButton.addEventListener('click', function() {
-    resetGame();
-  });
-}
-
 /*
 **Helper function for addCardListeners()
 **Adds open and show classes to a card when clicked
@@ -130,6 +122,14 @@ function removeStar() {
   document.getElementById('stars').lastElementChild.remove();
 }
 
+//add listener to reset entire game when refresh button is clicked
+function addRefreshListener() {
+  let resetButton = document.getElementById('refresh');
+  resetButton.addEventListener('click', function() {
+    resetGame();
+  });
+}
+
 //Resets game
 function resetGame() {
   //reset stars to 3
@@ -156,7 +156,7 @@ function resetGame() {
 
 /*
 **helper function for resetGame()
-**resets stars and moveCount to 0 moves and 3 starsHTML*/
+**resets stars and moveCount to 0 moves and 3 stars*/
 function resetStars() {
 let starsSection = document.getElementById('stars');
 starsSection.innerHTML = null;
