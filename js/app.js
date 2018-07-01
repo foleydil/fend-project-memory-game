@@ -1,8 +1,40 @@
+//GLOBAL VARIABLES
+
+//array of card IDs
+let deck = [
+  'diamond',
+  'diamond',
+  'paper-plane-o',
+  'paper-plane-o',
+  'anchor',
+  'anchor',
+  'bolt',
+  'bolt',
+  'cube',
+  'cube',
+  'leaf',
+  'leaf',
+  'bicycle',
+  'bicycle',
+  'bomb',
+  'bomb',
+];
+
+//array of DOM element of unmatched cards that are face-up
+let openCards = [];
+
+//Counter of moves
+let moveCount = 0;
+
+//counter of sucessful matches. When counter reaches 8, user has won!
+let matchCount = 0;
+
+
 //FUNCTION DECLARATIONS
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  let currentIndex = array.length, temporaryValue, randomIndex;
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
@@ -18,33 +50,33 @@ function shuffle(array) {
 // loop through deck array, create HTML and append to page
 function buildDeckGrid(deck) {
   let deckUl = document.querySelector('.deck');
-  deck.forEach(function(card) {
+  for (let cardName of deck) {
     let currentCard = document.createElement('li');
-    currentCard.classList.add('card', card);
+    currentCard.classList.add('card', cardName);
     let cardItem = document.createElement('i');
-    cardItem.classList.add('fa', 'fa-' + card);
+    cardItem.classList.add('fa', 'fa-' + cardName);
     currentCard.appendChild(cardItem);
     //  Add each card's HTML to the page
     deckUl.appendChild(currentCard);
-  });
+  };
 }
 
 //Set up event listener on each card
 function addCardListeners() {
   const cardsHTML = document.getElementsByClassName('card');
-  for (let i=0; i < cardsHTML.length; i++) {
-    cardsHTML[i].addEventListener('click', function(event) {
-      let card = null;
+  for (let card of cardsHTML) {
+    card.addEventListener('click', function(event) {
+      let c = null;
       if (event.target.nodeName === 'LI') {
-        card = event.target;
+        c = event.target;
       } else {
-        card = event.target.parentElement;
+        c = event.target.parentElement;
       };
       if (openCards.length !== 2
-        && !card.classList.contains('match')
-        && card !== openCards[0]) {
-          showCard(card);
-          addToOpenCards(card);
+        && !c.classList.contains('match')
+        && c !== openCards[0]) {
+          showCard(c);
+          addToOpenCards(c);
         };
       });
     };
@@ -160,7 +192,7 @@ function resetGame() {
 function resetStars() {
 let starsSection = document.getElementById('stars');
 starsSection.innerHTML = null;
-for (i=0; i<3; i++) {
+for (let i of Array(3)) {
   let starItem = document.createElement('i');
   starItem.classList.add('fa', 'fa-star');
   let singleStarHTML = document.createElement('li');
@@ -169,37 +201,6 @@ for (i=0; i<3; i++) {
   };
 }
 
-
-//GLOBAL VARIABLES
-
-//array of card IDs
-let deck = [
-  'diamond',
-  'diamond',
-  'paper-plane-o',
-  'paper-plane-o',
-  'anchor',
-  'anchor',
-  'bolt',
-  'bolt',
-  'cube',
-  'cube',
-  'leaf',
-  'leaf',
-  'bicycle',
-  'bicycle',
-  'bomb',
-  'bomb',
-];
-
-//array of DOM element of unmatched cards that are face-up
-let openCards = [];
-
-//Counter of moves
-let moveCount = 0;
-
-//counter of sucessful matches. When counter reaches 8, user has won!
-let matchCount = 0;
 
 //SCRIPTS TO RUN ON LOAD
 
