@@ -29,6 +29,9 @@ let moveCount = 0;
 //counter of sucessful matches. When counter reaches 8, user has won!
 let matchCount = 0;
 
+//Timer to execute timing function & run function to update display each second
+let timer =  setInterval(timerFunc, 1000);
+let timeCount = 0;
 
 //FUNCTION DECLARATIONS
 
@@ -162,6 +165,12 @@ function addRefreshListener() {
   });
 }
 
+//Set up & display timer when game begins
+function timerFunc() {
+  timeCount += 1;
+  document.getElementById('timer').innerHTML = 'Seconds: ' + timeCount;
+}
+
 //Resets game
 function resetGame() {
   //reset stars to 3
@@ -212,8 +221,8 @@ addRefreshListener();
 
 
 //TODO: Add transitions when cards flip, match, or do not match
-//TODO: Add timer, start when game starts or is reset, stop when game is won
-//TODO: Display timer in score section
+//TODO: Stop timer when game is won or restarted
+//TODO: restyle timer in mm:ss?
 //TODO: Add congratulations modal when matchCount = 8;
 //TODO: update README.md file
 
