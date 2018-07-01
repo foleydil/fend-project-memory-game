@@ -124,7 +124,7 @@ function checkForMatch(event){
     openCards[0].classList.remove('open');
     openCards[1].classList.add('noMatch');
     openCards[1].classList.remove('open');
-    setTimeout(function(){ resetCards() }, 2000);
+    setTimeout(function(){ resetCards() }, 1000);
   };
 }
 
