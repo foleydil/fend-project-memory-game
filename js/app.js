@@ -113,16 +113,14 @@ function addToOpenCards(c) {
 */
 function checkForMatch(event){
   if (openCards[0].classList[1] == openCards[1].classList[1]) {
-    openCards[0].classList.remove('open', 'show');
     openCards[0].classList.add('match');
-    openCards[1].classList.remove('open', 'show');
     openCards[1].classList.add('match');
     openCards = [];
     matchCount += 1;
     incrementMoveCount();
   } else {
     incrementMoveCount();
-    setTimeout(function(){ resetCards() }, 2000);
+    setTimeout(function(){ resetCards() }, 1000);
   };
 }
 
@@ -226,7 +224,7 @@ addCardListeners();
 addRefreshListener();
 
 
-//TODO: Add transitions when cards flip, match, or do not match
+//TODO: Add transitions when cards do not match
 //TODO: Stop timer when game is won
 //TODO: Add congratulations modal when matchCount = 8;
 //TODO: update README.md file

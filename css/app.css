@@ -80,7 +80,21 @@ h1 {
 .deck .card.match {
     cursor: default;
     background: #02ccba;
-    font-size: 33px;
+    animation: pulse .5s;
+}
+
+@keyframes pulse {
+    0%   {transform: scale(1);}
+    50%  {transform: scale(1.2);}
+    100% {transform: scale(1);}
+}
+
+@keyframes shake {
+    0%    {left: 0px;}
+    25%   {left: -15px;}
+    50%   {left: 15px;}
+    75%   {left: -15px;}
+    100%  {left: 0px;}
 }
 
 /*
