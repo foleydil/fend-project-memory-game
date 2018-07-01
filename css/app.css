@@ -73,14 +73,18 @@ h1 {
 }
 
 .deck .card.show {
-    transition: transform .2s;
     font-size: 33px;
 }
 
 .deck .card.match {
     cursor: default;
-    background: #02ccba;
+    background: #4d9e05;
     animation: pulse .5s;
+}
+
+.deck .card.noMatch {
+  background: red;
+  animation: shake .5s;
 }
 
 @keyframes pulse {
@@ -90,11 +94,11 @@ h1 {
 }
 
 @keyframes shake {
-    0%    {left: 0px;}
-    25%   {left: -15px;}
-    50%   {left: 15px;}
-    75%   {left: -15px;}
-    100%  {left: 0px;}
+    0%    {transform: translate(0px);}
+    25%   {transform: translate(-5px);}
+    50%   {transform: translate(5px);}
+    75%   {transform: translate(-5px);}
+    100%  {transform: translate(0px);}
 }
 
 /*
