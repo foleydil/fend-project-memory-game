@@ -228,7 +228,6 @@ addRefreshListener();
 
 //TODO: Add transitions when cards flip, match, or do not match
 //TODO: Stop timer when game is won
-//TODO: restyle timer in mm:ss?
 //TODO: Add congratulations modal when matchCount = 8;
 //TODO: update README.md file
 
