@@ -167,8 +167,8 @@ function addRefreshListener() {
 
 //Set up & display timer when game begins
 function timerFunc() {
-  timeCount += 1;
   document.getElementById('timer').innerHTML = 'Seconds: ' + timeCount;
+  timeCount += 1;
 }
 
 //Resets game
@@ -181,6 +181,11 @@ function resetGame() {
   moveCount = 0;
   document.getElementById('moveCount').innerText = moveCount;
 
+  //reset timer
+  clearInterval(timer);
+  timeCount = 0;
+  timer = setInterval(timerFunc, 1000);
+
   //clear any card elements from openCards array
   openCards = [];
 
@@ -188,11 +193,12 @@ function resetGame() {
   let deckUl = document.querySelector('.deck');
   deckUl.innerHTML = null;
 
-  //shuffle deck, display on page, and add appropriate listeners
+  //shuffle deck, display on page, add appropriate listeners, start timer
   shuffle(deck);
   buildDeckGrid(deck);
   addCardListeners();
   addRefreshListener();
+  timerFunc();
 };
 
 /*
