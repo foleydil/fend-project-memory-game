@@ -3,22 +3,15 @@
 //array of card IDs
 let deck = [
   'diamond',
-  'diamond',
-  'paper-plane-o',
   'paper-plane-o',
   'anchor',
-  'anchor',
-  'bolt',
   'bolt',
   'cube',
-  'cube',
-  'leaf',
   'leaf',
   'bicycle',
-  'bicycle',
-  'bomb',
   'bomb',
 ];
+deck = [...deck, ...deck]
 
 //array of DOM element of unmatched cards that are face-up
 let openCards = [];
@@ -100,9 +93,7 @@ function showCard(c) {
 */
 function addToOpenCards(c) {
   openCards.push(c);
-  if (openCards.length === 2) {
-    checkForMatch(c);
-  };
+  openCards.length === 2 && checkForMatch(c);
 }
 
 /*
