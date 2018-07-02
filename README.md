@@ -17,8 +17,8 @@ as little time as possible. When all cards are matched, the user wins and receiv
 
 ## Dependencies
 
-Two fonts are required for displaying icons appropriately, linked as stylesheets in index.html:
-`font-awesome`: https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css
+Two fonts are required for displaying icons appropriately, linked as stylesheets in index.html:  
+`font-awesome`: https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css  
 `Coda` font: https://fonts.googleapis.com/css?family=Coda
 
 ## Contributing
