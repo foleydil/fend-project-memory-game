@@ -23,8 +23,9 @@ let moveCount = 0;
 let matchCount = 0;
 
 //Timer to execute timing function & run function to update display each second
-let timer =  setInterval(timerFunc, 1000);
+let timer =  0;
 let timeCount = 0;
+let timerRunning = false;
 
 //FUNCTION DECLARATIONS
 
@@ -73,6 +74,10 @@ function addCardListeners() {
         && c !== openCards[0]) {
           showCard(c);
           addToOpenCards(c);
+          if (!timerRunning) {
+            timer = setInterval(timerFunc, 1000);
+            timerRunning = true;
+          };
         };
       });
     };
@@ -189,7 +194,7 @@ function resetGame() {
   //reset timer
   clearInterval(timer);
   timeCount = 0;
-  timer = setInterval(timerFunc, 1000);
+  timerRunning = false;
 
   //clear any card elements from openCards array
   openCards = [];
