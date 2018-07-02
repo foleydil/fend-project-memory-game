@@ -218,6 +218,22 @@ for (let i of Array(3)) {
   };
 }
 
+//Displays modal if user wins (matchCount = 8)
+function displayModal() {
+  //Add results to modal before displaying
+  document.getElementById('moves').innerText = moveCount + " moves";
+  document.getElementById('seconds').innerText = timeCount + " seconds";
+  let stars = 3;
+  if (moveCount > 19) {
+    stars = 1;
+  } else if (moveCount > 12) {
+    stars = 2;
+  };
+  document.getElementById('finalStars').innerText = stars + " Stars";
+
+  //display modal
+  document.getElementById('modal').style.display = 'block';
+}
 
 //SCRIPTS TO RUN ON LOAD
 
