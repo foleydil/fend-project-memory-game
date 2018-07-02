@@ -118,6 +118,7 @@ function checkForMatch(event){
     openCards = [];
     matchCount += 1;
     incrementMoveCount();
+    checkMatchCount();
   } else {
     incrementMoveCount();
     openCards[0].classList.add('noMatch');
@@ -137,6 +138,17 @@ function resetCards() {
     c.classList.remove('open','show', 'noMatch');
   };
   openCards = [];
+}
+
+/*
+**helper function for checkForMatch
+**checks if user has matched all sets of cards and displays final modal if done
+*/
+function checkMatchCount() {
+  if (matchCount === 8) {
+    clearInterval(timer);
+    displayModal();
+  };
 }
 
 /*
@@ -205,7 +217,8 @@ function resetGame() {
 
 /*
 **helper function for resetGame()
-**resets stars and moveCount to 0 moves and 3 stars*/
+**resets stars and moveCount to 0 moves and 3 stars
+*/
 function resetStars() {
 let starsSection = document.getElementById('stars');
 starsSection.innerHTML = null;
@@ -222,7 +235,7 @@ for (let i of Array(3)) {
 function displayModal() {
   //Add results to modal before displaying
   document.getElementById('moves').innerText = moveCount + " moves";
-  document.getElementById('seconds').innerText = timeCount + " seconds";
+  document.getElementById('seconds').innerText = (timeCount - 1) + " seconds";
   let stars = 3;
   if (moveCount > 19) {
     stars = 1;
@@ -244,8 +257,6 @@ addCardListeners();
 addRefreshListener();
 
 
-//TODO: Stop timer when game is won
-//TODO: Add congratulations modal when matchCount = 8;
 //TODO: update README.md file
 
 /*
